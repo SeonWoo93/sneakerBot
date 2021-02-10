@@ -34,7 +34,7 @@ class User extends Component {
                             <Form.Group controlId="formBasicCheckbox">
                                 <Form.Check type="checkbox" label="Check me out" />
                             </Form.Group>
-                            <Button variant="primary" size="lg" onClick={this.props.userList}>&nbsp;&nbsp;login&nbsp;&nbsp;</Button>
+                            <Button variant="primary" size="lg" onClick={this.props.userList}>&nbsp;&nbsp;login&nbsp;&nbsp;</Button> 
                         </Form>
                     </div>
                 </header>
