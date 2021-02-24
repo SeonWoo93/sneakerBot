@@ -1,8 +1,7 @@
 import './App.css';
-import { BrowserRouter, Route } from 'react-router-dom';
 
-import UserContainer from './containers/UserContainer.js';
-import HomeContainer from './containers/HomeContainer.js';
+import HeaderComponent from "./component/HeaderComponent.js";
+import MainComponent from "./component/MainComponent.js";
 import { Component } from 'react';
 
 /*function App() {
@@ -36,11 +35,15 @@ class App extends Component {
 
     render() {
         return (
-            <div className='App'>
+            /*<div className='App'>
                 <BrowserRouter>
                     <Route path='/' component={UserContainer} exact />
                     <Route path='/home' component={HomeContainer} />
                 </BrowserRouter>
+            </div>*/
+            <div className="App">
+                <HeaderComponent />
+                <MainComponent />
             </div>
             )
     }
