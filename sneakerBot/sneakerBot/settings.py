@@ -45,7 +45,7 @@ INSTALLED_APPS = [
 
     'corsheaders',   #장고랑 리액트 통신해주는 것 
     'rest_framework',
-    #'sample'
+    'sample',
 
     #add Apps
     'proxy',
