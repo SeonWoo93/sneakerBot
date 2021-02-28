@@ -43,9 +43,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'corsheaders',
+    'corsheaders',   #장고랑 리액트 통신해주는 것 
     'rest_framework',
-    'sample'
+    #'sample'
+
+    #add Apps
+    'proxy',
+    'account',
+    'payment',
+    'task',
+    'user'
 ]
 
 MIDDLEWARE = [
@@ -57,8 +64,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware'
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'sneakerBot.urls'
@@ -87,7 +93,8 @@ WSGI_APPLICATION = 'sneakerBot.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', #DB종류
-        'NAME': 'sample', #연동 DB명
+        #'NAME': 'sample', #연동 DB명
+        'NAME': 'sneakerbot', #연동 DB명
         'USER' : 'root', #DB접속 계정명
         'PASSWORD' : 'root', #해당DB계정 패스워드
         'HOST' : 'localhost', #DB주소
