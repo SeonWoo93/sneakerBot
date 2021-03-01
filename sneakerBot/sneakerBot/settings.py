@@ -34,7 +34,6 @@ CORS_ORIGIN_WHITELIST = [
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,8 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+
     'corsheaders',    #장고랑 리액트 통신해주는 것 
-    'rest_framework', #rest_Framework
+    #rest_Framework
+    'rest_framework', 
     'sample',         #리액트 테스트를 하기위한 TEST App
 
     #add Apps
@@ -54,6 +55,15 @@ INSTALLED_APPS = [
     'task',
     'user'
 ]
+
+"""  DRF(Django-Rest-Framework) ## 참고사이트 : https://this-programmer.tistory.com/entry/%EA%B0%84%EB%8B%A8%ED%95%9C-react-JS-Django-%EC%96%B4%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%A7%8C%EB%93%A4%EA%B8%B0
+장고 rest프레임워크는 자동으로 pk값을 index로 지정해서 뿌려준다.
+어떤 형식의 데이터를 보낼지는 post app디렉토리 안의 view.py에서 정해진다. 
+그리고 중요한게 바로 serializers이다.
+api요청 데이터포멧은 JSON. 반환값을 항상 JSON으로 직렬화 해주는 것이 필요함. 
+-> 이때 사용하는게 DRF의 serializers임.
+
+"""
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -122,7 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 #[2021-03-01] 시스템 사용자 모델설정. account앱의 User클래스
-AUTH_USER_MODEL = 'account.User'
+AUTH_USER_MODEL = 'account.Account'
 
 
 # Internationalization

@@ -6,6 +6,7 @@ from django.contrib.auth.models import (
 from django.contrib.auth.validators import UnicodeUsernameValidator
 
 from django.db import models
+from rest_framework import serializers #데이터 직렬화
 
 #verbose _사용 -> 의미는 모름
 from django.utils.translation import ugettext_lazy as _
@@ -131,7 +132,8 @@ class Account(AbstractUser): #PermissionsMixin이 AbstractUser에 포함되어 �
     class Meta:
         verbose_name = _("user")
         verbose_name_plural = _("users")
-        abstract = True ##AbstractUser에 있어서 따라씀 뭔지 모름
+        swappable = 'AUTH_USER_MODEL'
+        #abstract = True ##AbstractUser에 있어서 따라씀 뭔지 모름
 
     #로그 출력해주는 포멧으로 기억함
     def __str__(self):
@@ -146,12 +148,25 @@ class Account(AbstractUser): #PermissionsMixin이 AbstractUser에 포함되어 �
         return self.ip_address
 
 #Setting.py에 AUTH_USER_MODEL = 'account.User'를 설정해줄때 Meta sqppable해줘야하는듯?
-class User(Account):
-    """
-    Users within the Django authentication system are represented by this
-    model.
+# class User(Account):
+#     """
+#     Users within the Django authentication system are represented by this
+#     model.
 
-    Username and password are required. Other fields are optional.
-    """
-    class Meta(Account.Meta):
-        swappable = 'AUTH_USER_MODEL'
+#     Username and password are required. Other fields are optional.
+#     """
+#     class Meta(Account.Meta):
+#         swappable = 'AUTH_USER_MODEL'
+
+# User모델 직렬화 설정 class
+# 참고사이트 : https://this-programmer.tistory.com/entry/%EA%B0%84%EB%8B%A8%ED%95%9C-react-JS-Django-%EC%96%B4%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%A7%8C%EB%93%A4%EA%B8%B0
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = (
+            'id',
+            'password',
+            'username',
+            'ip_address'
+        )
+
+        model = Account
