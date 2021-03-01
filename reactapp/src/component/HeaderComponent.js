@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import MenuComponent from "../containers/MenuComponent";
+import MenuContainer from "../containers/MenuContainer";
 
 class HeaderComponent extends Component {
     render() {
         return (
             <div>
                 <Row>
-                    <Col><MenuComponent /></Col>
+                    <Col><MenuContainer /></Col>
                 </Row>
             </div>
         )
