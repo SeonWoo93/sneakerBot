@@ -43,9 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'corsheaders',   #장고랑 리액트 통신해주는 것 
-    'rest_framework',
-    'sample',
+    'corsheaders',    #장고랑 리액트 통신해주는 것 
+    'rest_framework', #rest_Framework
+    'sample',         #리액트 테스트를 하기위한 TEST App
 
     #add Apps
     'proxy',
@@ -121,6 +121,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#[2021-03-01] 시스템 사용자 모델설정. account앱의 User클래스
+AUTH_USER_MODEL = 'account.User'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -140,3 +143,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+##==================================================================================##
+## 하단에는 개발하면서 새로 추가하게된 내용들 
+##==================================================================================##
+
+# [2021-03-01] rest_framework App추가 후 설정해준 내용 
+# 참고사이트 : https://this-programmer.tistory.com/entry/%EA%B0%84%EB%8B%A8%ED%95%9C-react-JS-Django-%EC%96%B4%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%A7%8C%EB%93%A4%EA%B8%B0
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
+}
+
