@@ -2,7 +2,8 @@ import MenuComponent from "../component/MenuComponent";
 import { connect } from "react-redux";
 import axios from 'axios';
 
-const url = "http://localhost:8000/account/";
+const loginUrl = "http://localhost:8000/account/";
+const joinUrl  = "http://localhost:8000/user/";
 
 function reduxToReact(state) {
     console.log(state.userList);
@@ -14,12 +15,26 @@ function reduxToReact(state) {
 
 function dispatchRedux(dispatch, props) {
     return {
-        loginUser: function (body) {
+        //login url
+        loginUser : function(body) {
             console.log(body);
-            axios.get(url)
+            axios.get(loginUrl)
                 .then(response => {
                     console.log(response.data);
                     dispatch({ type: 'LOGIN_USER', loginUser: response.data })
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+
+        //join url
+        joinUser : function(body) {
+            console.log(body);
+            axios.get(joinUrl)
+                .then(response => {
+                    console.log(response.data);
+                    dispatch({ type: 'JOIN_USER', joinUser: response.data })
                 })
                 .catch(error => {
                     console.log(error);

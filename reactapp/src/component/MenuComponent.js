@@ -12,8 +12,11 @@ class MenuComponent extends Component {
         super(props);
 
         this.state = {
-            loginShow : false, //loginModal 초기값
-            joinShow  : false, //joinModal 초기값
+            loginShow        : false, //loginModal 초기값
+            joinShow         : false, //joinModal 초기값
+            joinPassword     : '',    //회원가입 비밀번호
+            joinPassword_chk : '',    //회원가입 비밀번호 체크
+            message_chk      : '',    //비밀번호 일치여부
         };
     }
 
@@ -54,12 +57,9 @@ class MenuComponent extends Component {
         const data = new FormData(e.target);
 
         //전달할 데이터
-        const username = data.get("username");
-        const password = data.get("password");
-        
         let body = {
-            username : data.get("username"),
-            password : data.get("password"),
+            username : data.get("loginUsername"),
+            password : data.get("loginPassword"),
         }
 
         console.log(body);
@@ -70,7 +70,72 @@ class MenuComponent extends Component {
         });
         
         //login url호출
-        this.props.loginUser();
+        this.props.loginUser(body);
+    }
+
+    //join
+    joinSubmit = (e) => {
+        //페이지 리로딩 방지
+        e.preventDefault();
+
+        //form 태크 하위 태그의 모든 값을 가져옴
+        const data = new FormData(e.target);
+
+        //전달할 데이터
+        let body = {
+            username         : data.get("joinUsername"),
+            password         : data.get("joinPassword"),
+            joinPassword_chk : data.get("joinPassword_chk"),
+        }
+        if(body.password !== body.joinPassword_chk) {
+            alert("비밀번호를 확인해주세요");
+            return false;
+        }
+
+        if(body.password === '' || body.password == '') {
+            alert("비밀번호를 입력해주세요");
+            return false;
+        }
+
+        console.log(body);
+
+        //joinModel close
+        this.setState({
+            joinShow : false,
+        });
+
+        //join url호출
+        this.props.joinUser(body);
+    }
+
+    //password
+    password = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        }) //password값 업데이트
+    }
+
+    //password_chk
+    password_chk = (e) => {
+        this.setState({
+            [e.target.name] : e.target.value
+        }) //password_chk값 업데이트
+
+        if (e.target.value !== this.state.joinPassword) {
+            this.setState({
+                message_chk: "비밀번호가 일치하지 않습니다."
+            })
+          }
+          else if (e.target.value === '') {
+            this.setState({
+                message_chk: ''
+            })
+          }
+          else if (e.target.value === this.state.joinPassword) {
+            this.setState({
+                message_chk: "비밀번호가 일치합니다."
+            })
+          }
     }
 
     render() {
@@ -119,13 +184,13 @@ class MenuComponent extends Component {
                                 <Modal.Body>
                                         <Form.Group controlId="formBasicEmail">
                                             <Form.Label>user ID</Form.Label>
-                                            <Form.Control type="text" name="username" placeholder="sing your ID" />
+                                            <Form.Control type="text" name="loginUsername" placeholder="sing your ID" />
                                             <Form.Text className="text-muted">We'll never share your email with anyone else.</Form.Text>
                                         </Form.Group>
 
                                         <Form.Group controlId="formBasicPassword">
                                             <Form.Label>Password</Form.Label>
-                                            <Form.Control type="password" name="password" placeholder="sing your Password" />
+                                            <Form.Control type="password" name="loginPassword" placeholder="sing your Password" />
                                         </Form.Group>
                                 </Modal.Body>
                                 <Modal.Footer>
@@ -146,29 +211,34 @@ class MenuComponent extends Component {
                     <Modal.Header closeButton>
                         <Modal.Title>Login</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body>
-                            <Form>
-                                <Form.Group controlId="formBasicEmail">
-                                    <Form.Label>user ID</Form.Label>
-                                    <Form.Control type="email" placeholder="sing your ID" />
-                                    <Form.Text className="text-muted">We'll never share your email with anyone else.</Form.Text>
-                                </Form.Group>
+                            <Form onSubmit={this.joinSubmit}>
+                                <Modal.Body>
+                                        <Form.Group controlId="formBasicEmail">
+                                            <Form.Label>user ID</Form.Label>
+                                            <Form.Control type="text" name="joinUsername" placeholder="sing your ID" />
+                                            <Form.Text className="text-muted">We'll never share your email with anyone else.</Form.Text>
+                                        </Form.Group>
 
-                                <Form.Group controlId="formBasicPassword">
-                                    <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" placeholder="sing your Password" />
-                                </Form.Group>
+                                        <Form.Group controlId="formBasicPassword">
+                                            <Form.Label>Password</Form.Label>
+                                            <Form.Control type="password" name="joinPassword" placeholder="sing your Password" 
+                                                 onChange={this.password}/>
+                                        </Form.Group>
 
-                                <Form.Group controlId="formBasicPassword">
-                                    <Form.Label>Password check</Form.Label>
-                                    <Form.Control type="password" placeholder="sing your Password" />
-                                </Form.Group>
+                                        <Form.Group controlId="formBasicPassword">
+                                            <Form.Label>Password check</Form.Label>
+                                            <Form.Control type="password" name="joinPassword_chk" placeholder="sing your Password" 
+                                                onChange={this.password_chk}/>
+                                        </Form.Group>
+                                        <Form.Group>
+                                            <Form.Control type="text" placeholder={this.state.message_chk} readOnly />&nbsp;&nbsp;
+                                        </Form.Group>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="primary" type="submit">submit</Button>
+                                    <Button variant="secondary" onClick={this.handleJoinClose}>Close</Button>
+                                </Modal.Footer>
                             </Form>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="primary" type="submit">submit</Button>
-                            <Button variant="secondary" onClick={this.handleJoinClose}>Close</Button>
-                        </Modal.Footer>
                     </Modal>
                 </>
             </div>
