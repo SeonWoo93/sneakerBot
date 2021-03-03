@@ -62,6 +62,16 @@ class MenuComponent extends Component {
             password : data.get("loginPassword"),
         }
 
+        if(body.username === '') {
+            alert("아이디를 입력해주세요.");
+            return false;
+        }
+
+        if(body.password === '') {
+            alert("비밀번호를 입력해주세요.");
+            return false;
+        }
+
         console.log(body);
 
         //loginModel close
@@ -87,6 +97,12 @@ class MenuComponent extends Component {
             password         : data.get("joinPassword"),
             joinPassword_chk : data.get("joinPassword_chk"),
         }
+
+        if(body.username === '') {
+            alert("아이디를 입력해주세요.");
+            return false;
+        }
+
         if(body.password !== body.joinPassword_chk) {
             alert("비밀번호를 확인해주세요");
             return false;
