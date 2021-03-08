@@ -129,6 +129,22 @@ class MenuComponent extends Component {
         this.setState({
             [e.target.name]: e.target.value
         }) //password값 업데이트
+
+        if(this.state.joinPassword_chk !== '' && e.target.value !== '') {
+            if(e.target.value !== this.state.joinPassword_chk) {
+                this.setState({
+                    message_chk : "비밀번호가 일치하지 않습니다."
+                })
+            } else {
+                this.setState({
+                    message_chk : "비밀번호가 일치합니다."
+                })
+            }
+        } else {
+            this.setState({
+                message_chk : ''
+            })
+        }
     }
 
     //password_chk
@@ -137,21 +153,21 @@ class MenuComponent extends Component {
             [e.target.name] : e.target.value
         }) //password_chk값 업데이트
 
-        if (e.target.value !== this.state.joinPassword) {
+        if(this.state.joinPassword !== '' && e.target.value !== '') {
+            if (e.target.value !== this.state.joinPassword) {
+                this.setState({
+                    message_chk : "비밀번호가 일치하지 않습니다."
+                })
+              } else {
+                this.setState({
+                    message_chk : "비밀번호가 일치합니다."
+                })
+              }
+        } else {
             this.setState({
-                message_chk: "비밀번호가 일치하지 않습니다."
+                message_chk : ''
             })
-          }
-          else if (e.target.value === '') {
-            this.setState({
-                message_chk: ''
-            })
-          }
-          else if (e.target.value === this.state.joinPassword) {
-            this.setState({
-                message_chk: "비밀번호가 일치합니다."
-            })
-          }
+        }
     }
 
     render() {
