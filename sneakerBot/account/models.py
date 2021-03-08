@@ -84,7 +84,7 @@ class Account(AbstractUser): #PermissionsMixin이 AbstractUser에 포함되어 �
     username = models.CharField(
         _('username'),
         max_length=150,
-        unique=True,
+        primary_key=True,
         help_text=_('최대 150자 입력가능. 숫자와 영문, @/./+/-/_ 입력가능.'),
         validators=[username_validator], #유효성체크
         error_messages={
@@ -98,6 +98,12 @@ class Account(AbstractUser): #PermissionsMixin이 AbstractUser에 포함되어 �
     #     #verbose_name=_("Email address"),
     #     max_length = 255
     # )
+
+    #미사용 컬럼 [2021-03-08]
+    first_name = None
+    last_name  = None
+    email      = None
+    groups     = None
 
     #ip주소
     ip_address = models.CharField(
